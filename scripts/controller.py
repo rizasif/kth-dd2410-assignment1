@@ -57,6 +57,8 @@ def initialize():
 	pwm.PWM2 = 100
 	pub.publish(pwm)
 
+	rospy.spin()
+
 if __name__ == '__main__':
 	try:
 		# talker()
