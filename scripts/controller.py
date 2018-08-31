@@ -13,7 +13,7 @@ b = 0.115
 r = 0.0352
 
 pub = rospy.Publisher('/kobuki/pwm', PWM, queue_size=10)
-rate = rospy.Rate(10) # 10hz
+rate = 0
 
 # def talker():
 # 	pub = rospy.Publisher('/kobuki/pwm', PWM, queue_size=10)
@@ -57,6 +57,7 @@ def initialize():
 	pwm.PWM1 = 100
 	pwm.PWM2 = 100
 	pub.publish(pwm)
+	rate.sleep()
 
 	# rospy.spin()
 
@@ -64,9 +65,10 @@ if __name__ == '__main__':
 	try:
 		# talker()
 		rospy.init_node('controller_node', anonymous=True)
+		rate = rospy.Rate(10)
 		
 		initialize()
-		listener()
+		# listener()
 
 		rospy.spin()
 
