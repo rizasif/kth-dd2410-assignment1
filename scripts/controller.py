@@ -3,7 +3,7 @@
 import rospy
 # from std_msgs.msg import String
 from ras_lab1_msgs.msg import PWM
-from geometry_msgs.msg import twist
+from geometry_msgs.msg import Twist
 from ras_lab1_msgs.msg import Encoders
 from listner import GetEncoderData
 import math
@@ -43,7 +43,7 @@ def callback(data):
 	
 def listener():
 	rospy.init_node('pwm_listener', anonymous=True)
-	rospy.Subscriber("/motor_controller/twist", twist, callback)
+	rospy.Subscriber("/motor_controller/twist", Twist, callback)
 
 	rospy.spin()
 
