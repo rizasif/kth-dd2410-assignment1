@@ -27,8 +27,12 @@ pub = rospy.Publisher('/kobuki/pwm', PWM, queue_size=10)
 # 		rate.sleep()
 
 def callback(data):
+
 	v = data.linear
 	w = data.angular
+
+	rospy.loginfo("Received Command: {} {}".format(v, w))
+
 	encoder = GetEncoderData()
 	pwm = PWM()
 
