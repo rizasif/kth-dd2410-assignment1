@@ -12,7 +12,7 @@ ticks = 360
 b = 0.115
 r = 0.0352
 
-pub = rospy.Publisher('/kobuki/pwm', PWM)
+pub = rospy.Publisher('/kobuki/pwm', PWM, queue_size=10)
 
 # def talker():
 # 	pub = rospy.Publisher('/kobuki/pwm', PWM, queue_size=10)
