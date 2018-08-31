@@ -5,8 +5,8 @@ from ras_lab1_msgs.msg import Encoders
 last_encoder = Encoders()
 
 def callback(data):
-	rospy.loginfo(rospy.get_caller_id() + "Data recieved at {}".format(data.data.timestamp))
-	last_encoder = data.data
+	rospy.loginfo(rospy.get_caller_id() + "Data recieved at {}".format(data.timestamp))
+	last_encoder = data
 	
 def listener():
 	
