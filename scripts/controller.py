@@ -54,10 +54,11 @@ def listener():
 
 def initialize():
 	pwm = PWM()
-	pwm.PWM1 = 100
-	pwm.PWM2 = 100
-	pub.publish(pwm)
-	rate.sleep()
+	while not rospy.is_shutdown():
+		pwm.PWM1 = 100
+		pwm.PWM2 = 100
+		pub.publish(pwm)
+		rate.sleep()
 
 	# rospy.spin()
 
