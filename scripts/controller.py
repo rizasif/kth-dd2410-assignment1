@@ -12,7 +12,7 @@ ticks = 360
 b = 0.115
 r = 0.0352
 
-pub = rospy.Publisher('/kobuki/pwm', PWM, queue_size=10)
+pub = rospy.Publisher('/kobuki/pwm', PWM)
 
 # def talker():
 # 	pub = rospy.Publisher('/kobuki/pwm', PWM, queue_size=10)
@@ -60,7 +60,7 @@ def initialize():
 if __name__ == '__main__':
 	try:
 		# talker()
-		listener()
 		initialize()
+		listener()
 	except rospy.ROSInterruptException:
 		pass
