@@ -36,7 +36,7 @@ def callback(data):
 	encoder = GetEncoderData()
 	pwm = PWM()
 
-	vm = (v.x+v.y)/2
+	vm = (v.x+v.y)/2.0
 	wm = (w.y-w.x)/(2*b)
 
 	pwm.PWM1 = (2*math.pi*r*encoder.delta_encoder1)/ticks
@@ -51,9 +51,16 @@ def listener():
 
 	rospy.spin()
 
+def initialize():
+	pwm = PWM()
+	pwm.PWM1 = 100
+	pwm.PWM2 = 100
+	pub.publish(pwm)
+
 if __name__ == '__main__':
 	try:
 		# talker()
 		listener()
+		initialize()
 	except rospy.ROSInterruptException:
 		pass
