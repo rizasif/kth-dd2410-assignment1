@@ -5,7 +5,7 @@ import rospy
 from ras_lab1_msgs.msg import PWM
 
 def talker():
-	pub = rospy.Publisher('/motor_controller/twist', PWM, queue_size=10)
+	pub = rospy.Publisher('/kobuki/pwm', PWM, queue_size=10)
 	rospy.init_node('controller_node', anonymous=True)
 	rate = rospy.Rate(10) # 10hz
 	pwm = PWM()
