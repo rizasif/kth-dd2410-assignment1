@@ -45,7 +45,7 @@ def callback(data):
 	pub.publish(pwm)
 	
 def listener():
-	rospy.init_node('pwm_listener', anonymous=True)
+	# rospy.init_node('pwm_listener', anonymous=True)
 	rospy.Subscriber("/motor_controller/twist", Twist, callback)
 
 	# rospy.spin()
