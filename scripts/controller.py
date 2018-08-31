@@ -12,7 +12,7 @@ def talker():
 	while not rospy.is_shutdown():
 		pwm.PWM1 = 100
 		pwm.PWM2 = 100
-		rospy.loginfo("Publishing PWM: {}, {}", str(pwm.PWM1), str(pwm.PWM2))
+		rospy.loginfo("Publishing PWM: {}, {}".format(pwm.PWM1,pwm.PWM2) ) 
 		pub.publish(pwm)
 		rate.sleep()
 
