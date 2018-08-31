@@ -56,7 +56,7 @@ def initialize():
 	pwm.PWM2 = 100
 	pub.publish(pwm)
 
-	# rospy.spin()
+	# rospy.spin
 
 if __name__ == '__main__':
 	try:
@@ -64,7 +64,7 @@ if __name__ == '__main__':
 		rospy.init_node('controller_node', anonymous=True)
 		
 		initialize()
-		listener()
+		# listener()
 
 		rospy.spin()
 
