@@ -1,16 +1,19 @@
 #!/usr/bin/env python
 # license removed for brevity
 import rospy
-from std_msgs.msg import String
+# from std_msgs.msg import String
+from ras_lab1_msgs import PWM
 
 def talker():
-	pub = rospy.Publisher('chatter', String, queue_size=10)
-	rospy.init_node('talker', anonymous=True)
+	pub = rospy.Publisher('/motor_controller/twist', PWM, queue_size=10)
+	rospy.init_node('/motor_controller/twist_node', anonymous=True)
 	rate = rospy.Rate(10) # 10hz
+	pwm = PWM()
 	while not rospy.is_shutdown():
-		hello_str = "hello world %s" % rospy.get_time()
-		rospy.loginfo(hello_str)
-		pub.publish(hello_str)
+		pwm.PWM1 = 100
+		pwm.PWM2 = 100
+		rospy.loginfo("Publishing PWM: ", pwm)
+		pub.publish(pwm)
 		rate.sleep()
 
 if __name__ == '__main__':
