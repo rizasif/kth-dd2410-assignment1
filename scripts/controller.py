@@ -16,7 +16,6 @@ pub = rospy.Publisher('/kobuki/pwm', PWM)
 
 # def talker():
 # 	pub = rospy.Publisher('/kobuki/pwm', PWM, queue_size=10)
-# 	rospy.init_node('controller_node', anonymous=True)
 # 	rate = rospy.Rate(10) # 10hz
 # 	pwm = PWM()
 # 	while not rospy.is_shutdown():
@@ -49,7 +48,7 @@ def listener():
 	rospy.init_node('pwm_listener', anonymous=True)
 	rospy.Subscriber("/motor_controller/twist", Twist, callback)
 
-	rospy.spin()
+	# rospy.spin()
 
 def initialize():
 	pwm = PWM()
@@ -57,12 +56,17 @@ def initialize():
 	pwm.PWM2 = 100
 	pub.publish(pwm)
 
-	rospy.spin()
+	# rospy.spin()
 
 if __name__ == '__main__':
 	try:
 		# talker()
+		rospy.init_node('controller_node', anonymous=True)
+		
 		initialize()
 		listener()
+
+		rospy.spin()
+
 	except rospy.ROSInterruptException:
 		pass
