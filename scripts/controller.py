@@ -3,6 +3,8 @@
 import rospy
 # from std_msgs.msg import String
 from ras_lab1_msgs.msg import PWM
+from geometry_msg.msg import Twist
+from ras_lab1_msgs.msg import Encoders
 
 
 pub = rospy.Publisher('/kobuki/pwm', PWM, queue_size=10)
@@ -19,13 +21,14 @@ pub = rospy.Publisher('/kobuki/pwm', PWM, queue_size=10)
 # 		pub.publish(pwm)
 # 		rate.sleep()
 
-def callback(pwm):
+def callback(data):
+	
 	rospy.loginfo("Publishing PWM: {}, {}".format(pwm.PWM1,pwm.PWM2) ) 
 	pub.publish(pwm)
 	
 def listener():
 	rospy.init_node('pwm_listener', anonymous=True)
-	rospy.Subscriber("/motor_controller/twist", PWM, callback)
+	rospy.Subscriber("/motor_controller/twist", Twist, callback)
 
 	rospy.spin()
 
