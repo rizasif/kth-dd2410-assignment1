@@ -3,7 +3,7 @@
 import rospy
 # from std_msgs.msg import String
 from ras_lab1_msgs.msg import PWM
-from geometry_msg.msg import twist
+from geometry_msgs.msg import twist
 from ras_lab1_msgs.msg import Encoders
 from listner import GetEncoderData
 import math
@@ -32,8 +32,8 @@ def callback(data):
 	encoder = GetEncoderData()
 	pwm = PWM()
 
-	vm = (v[0]+v[1])/2
-	wm = (w[1]-w[0])/(2*b)
+	vm = (v.x+v.y)/2
+	wm = (w.y-w.x)/(2*b)
 
 	pwm.PWM1 = (2*math.pi*r*encoder.delta_encoder1)/ticks
 	pwm.PWM2 = (2*math.pi*r*encoder.delta_encoder2)/ticks
