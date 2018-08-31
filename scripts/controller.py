@@ -13,6 +13,7 @@ b = 0.115
 r = 0.0352
 
 pub = rospy.Publisher('/kobuki/pwm', PWM, queue_size=10)
+rate = rospy.Rate(10) # 10hz
 
 # def talker():
 # 	pub = rospy.Publisher('/kobuki/pwm', PWM, queue_size=10)
@@ -35,14 +36,15 @@ def callback(data):
 	encoder = GetEncoderData()
 	pwm = PWM()
 
-	vm = (v.x+v.y)/2.0
-	wm = (w.y-w.x)/(2*b)
+	vm = (v.x+v.y)/float(2)
+	wm = (w.y-w.x)/(float(2)*b)
 
-	pwm.PWM1 = (2*math.pi*r*encoder.delta_encoder1)/ticks
-	pwm.PWM2 = (2*math.pi*r*encoder.delta_encoder2)/ticks
+	pwm.PWM1 = (float(2)*math.pi*r*encoder.delta_encoder1)/ticks
+	pwm.PWM2 = (float(2)*math.pi*r*encoder.delta_encoder2)/ticks
 
 	rospy.loginfo("Publishing PWM: {}, {}".format(pwm.PWM1,pwm.PWM2) ) 
 	pub.publish(pwm)
+	rate.sleep()
 	
 def listener():
 	# rospy.init_node('pwm_listener', anonymous=True)
@@ -56,7 +58,7 @@ def initialize():
 	pwm.PWM2 = 100
 	pub.publish(pwm)
 
-	# rospy.spin
+	# rospy.spin()
 
 if __name__ == '__main__':
 	try:
@@ -64,7 +66,7 @@ if __name__ == '__main__':
 		rospy.init_node('controller_node', anonymous=True)
 		
 		initialize()
-		# listener()
+		listener()
 
 		rospy.spin()
 
