@@ -2,7 +2,7 @@
 # license removed for brevity
 import rospy
 # from std_msgs.msg import String
-from ras_lab1_msgs import PWM
+from ras_lab1_msgs.msg import PWM
 
 def talker():
 	pub = rospy.Publisher('/motor_controller/twist', PWM, queue_size=10)
