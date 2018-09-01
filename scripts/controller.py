@@ -61,8 +61,8 @@ def callback_encoder(data):
 	lina = (w1+w2)/2.0
 	anga = (w2-w1)/(2.0*b)
 
-	elin = lina - lind
-	eang = anga - angd
+	elin = lind - lina
+	eang = angd - anga
 
 	evw1 = elin - (b*eang)
 	evw2 = elin + (b*eang)
