@@ -48,8 +48,10 @@ def callback_encoder(data):
 	global error_sum1
 	global error_sum2
 	global pub
+	global lind
+	global angd
 
-	rospy.loginfo(rospy.get_caller_id() + "Encoder Data recieved: {} {}".format(data.delta_encoder1, data.delta_encoder2))
+	# rospy.loginfo(rospy.get_caller_id() + "Encoder Data recieved: {} {}".format(data.delta_encoder1, data.delta_encoder2))
 	w1 = (float(2)*math.pi*r*data.delta_encoder1*freq)/ticks
 	w2 = (float(2)*math.pi*r*data.delta_encoder2*freq)/ticks
 
@@ -74,6 +76,8 @@ def callback_encoder(data):
 	
 
 def callback_pwm(data):
+	global lind
+	global angd
 
 	v = data.linear
 	w = data.angular
@@ -81,7 +85,7 @@ def callback_pwm(data):
 	lind = v.x
 	angd = w.x
 
-	# rospy.loginfo("Received Command: {} {}".format(v, w))
+	rospy.loginfo("Received Command: {} {}".format(v, w))
 
 	# rospy.loginfo("Publishing PWM: {}, {}".format(pwm.PWM1,pwm.PWM2) ) 
 	# pub.publish(pwm)
