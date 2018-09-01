@@ -19,8 +19,8 @@ rate = 0
 pwm = PWM()
 
 # desired velocity
-lind = 0
-angd = 0
+vw1d = 0
+vw2d = 0
 
 # error sum
 error_sum1 = 0.0
@@ -48,8 +48,8 @@ def callback_encoder(data):
 	global error_sum1
 	global error_sum2
 	global pub
-	global lind
-	global angd
+	global vw1d
+	global vw2d
 	global rate
 	global Ki
 	global Kp
@@ -58,16 +58,16 @@ def callback_encoder(data):
 	w1 = (float(2)*math.pi*r*data.delta_encoder1*freq)/ticks
 	w2 = (float(2)*math.pi*r*data.delta_encoder2*freq)/ticks
 
-	lina = (w1+w2)/2.0
-	anga = (w2-w1)/(2.0*b)
+	# lina = (w1+w2)/2.0
+	# anga = (w2-w1)/(2.0*b)
 
-	elin = lind - lina
-	eang = angd - anga
+	evw1 = vw1d - w1
+	evw2 = vw2d - w2
 
-	rospy.loginfo("Error: {}, {}".format(elin,eang) )
+	rospy.loginfo("Error: {}, {}".format(evw1,evw2) )
 
-	evw1 = elin - (b*eang)
-	evw2 = elin + (b*eang)
+	# evw1 = ew1 - (b*eang)
+	# evw2 = ew2 + (b*eang)
 
 	# evw1 = (evw1*ticks)/(2*math.pi*r*freq)
 	# evw2 = (evw2*ticks)/(2*math.pi*r*freq)
@@ -84,14 +84,17 @@ def callback_encoder(data):
 	
 
 def callback_pwm(data):
-	global lind
-	global angd
+	global vw1d
+	global vw2d
 
 	v = data.linear
 	w = data.angular
 
-	lind = v.x
-	angd = w.x
+	vw1 = v - (b*w)
+	vw2 = v + (b*w)
+
+	vw1d = vw1
+	vw2d = vw2
 
 	rospy.loginfo("Received Command: {} {}".format(v, w))
 
