@@ -64,6 +64,8 @@ def callback_encoder(data):
 	elin = lind - lina
 	eang = angd - anga
 
+	rospy.loginfo("Error: {}, {}".format(elin,eang) )
+
 	evw1 = elin - (b*eang)
 	evw2 = elin + (b*eang)
 
