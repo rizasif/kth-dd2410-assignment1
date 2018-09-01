@@ -74,20 +74,14 @@ def callback_encoder(data):
 
 	rospy.loginfo("Error: {}, {}".format(evw1,evw2) )
 
-	# evw1 = ew1 - (b*eang)
-	# evw2 = ew2 + (b*eang)
-
-	# evw1 = (evw1*ticks)/(2*math.pi*r*freq)
-	# evw2 = (evw2*ticks)/(2*math.pi*r*freq)
-
 	error_sum1 += (float(evw1)/freq)
 	error_sum2 += (float(evw2)/freq)
 
 	dl1 = evw1-le1
 	dl2 = evw2-le2
 
-	pwm.PWM1 = (Kp*evw1) + (Ki*error_sum1) + (Kd* (dl1*freq) )
-	pwm.PWM2 = (Kp*evw2) + (Ki*error_sum2) + (Kd* (dl2*freq) )
+	pwm.PWM1 -= (Kp*evw1) + (Ki*error_sum1) + (Kd* (dl1*freq) )
+	pwm.PWM2 -= (Kp*evw2) + (Ki*error_sum2) + (Kd* (dl2*freq) )
 
 	le1 = evw1
 	le2 = evw2
