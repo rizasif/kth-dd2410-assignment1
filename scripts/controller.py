@@ -50,6 +50,7 @@ def callback_encoder(data):
 	global pub
 	global lind
 	global angd
+	global rate
 
 	# rospy.loginfo(rospy.get_caller_id() + "Encoder Data recieved: {} {}".format(data.delta_encoder1, data.delta_encoder2))
 	w1 = (float(2)*math.pi*r*data.delta_encoder1*freq)/ticks
@@ -69,6 +70,9 @@ def callback_encoder(data):
 
 	pwm.PWM1 = (Kp*evw1) + (Ki*error_sum1)
 	pwm.PWM2 = (Kp*evw2) + (Ki*error_sum2)
+
+	pwm.PWM1 = (pwm.PWM1*ticks)/(2*math.pi*r*f*data.delta_encoder1)
+	pwm.PWM2 = (pwm.PWM1*ticks)/(2*math.pi*r*f*data.delta_encoder2)
 
 	rospy.loginfo("Publishing PWM: {}, {}".format(pwm.PWM1,pwm.PWM2) )
 	pub.publish(pwm)
@@ -108,6 +112,8 @@ def listener():
 
 if __name__ == '__main__':
 	try:
+		global rate
+
 		# talker()
 		rospy.init_node('controller_node', anonymous=True)
 		rate = rospy.Rate(freq)
