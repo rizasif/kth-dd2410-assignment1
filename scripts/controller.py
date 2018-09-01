@@ -27,8 +27,13 @@ error_sum1 = 0.0
 error_sum2 = 0.0
 
 # controller
-Kp = 0.2
+Kp = 1.2
 Ki = 1
+Kd = 0.001
+
+# last erros
+le1 = 0
+le2 = 0
 
 pub = rospy.Publisher('/kobuki/pwm', PWM, queue_size=10)
 
@@ -53,6 +58,9 @@ def callback_encoder(data):
 	global rate
 	global Ki
 	global Kp
+	global Kd
+	global le1
+	global le2
 
 	# rospy.loginfo(rospy.get_caller_id() + "Encoder Data recieved: {} {}".format(data.delta_encoder1, data.delta_encoder2))
 	w1 = (float(2)*math.pi*r*data.delta_encoder1*freq)/ticks
@@ -72,11 +80,17 @@ def callback_encoder(data):
 	# evw1 = (evw1*ticks)/(2*math.pi*r*freq)
 	# evw2 = (evw2*ticks)/(2*math.pi*r*freq)
 
-	error_sum1 += float(evw1)
-	error_sum2 += float(evw2)
+	error_sum1 += (float(evw1)/freq)
+	error_sum2 += (float(evw2)/freq)
 
-	pwm.PWM1 = (Kp*evw1) + (Ki*error_sum1)
-	pwm.PWM2 = (Kp*evw2) + (Ki*error_sum2)
+	dl1 = evw1-le1
+	dl2 = evw2-le2
+
+	pwm.PWM1 = (Kp*evw1) + (Ki*error_sum1) + (Kd* (dl1*freq) )
+	pwm.PWM2 = (Kp*evw2) + (Ki*error_sum2) + (Kd* (dl2*freq) )
+
+	le1 = evw1
+	le2 = evw2
 
 	rospy.loginfo("Publishing PWM: {}, {}".format(pwm.PWM1,pwm.PWM2) )
 	pub.publish(pwm)
