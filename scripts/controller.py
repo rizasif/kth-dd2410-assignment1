@@ -87,8 +87,8 @@ def callback_pwm(data):
 	global vw1d
 	global vw2d
 
-	v = data.linear
-	w = data.angular
+	v = data.linear.x
+	w = data.angular.x
 
 	vw1 = v - (b*w)
 	vw2 = v + (b*w)
