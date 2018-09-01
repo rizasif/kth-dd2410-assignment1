@@ -30,6 +30,8 @@ error_sum2 = 0.0
 Kp = 0.2
 Ki = 0.1
 
+pub = rospy.Publisher('/kobuki/pwm', PWM, queue_size=10)
+
 
 # def talker():
 # 	pub = rospy.Publisher('/kobuki/pwm', PWM, queue_size=10)
@@ -43,6 +45,10 @@ Ki = 0.1
 # 		rate.sleep()
 
 def callback_encoder(data):
+	global error_sum1
+	global error_sum2
+	global pub
+
 	rospy.loginfo(rospy.get_caller_id() + "Encoder Data recieved: {} {}".format(data.delta_encoder1, data.delta_encoder2))
 	w1 = (float(2)*math.pi*r*data.delta_encoder1*freq)/ticks
 	w2 = (float(2)*math.pi*r*data.delta_encoder2*freq)/ticks
