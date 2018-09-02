@@ -20,8 +20,8 @@ def callback_adc(data):
 
 	rospy.loginfo("Channels Recieved: {}, {}".format(ch1,ch2) )
 
-	d2 = 1.114*math.exp(-0.004*ch1)
-	d1 = 1.114*math.exp(-0.004*ch2)
+	d1 = 1.114*math.exp(-0.004*ch1)
+	d2 = 1.114*math.exp(-0.004*ch2)
 
 	rospy.loginfo("Distances: {}, {}".format(d1,d2) )
 
