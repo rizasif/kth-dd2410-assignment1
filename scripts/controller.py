@@ -68,7 +68,7 @@ def callback_encoder(data):
 	vw1 = (float(2)*math.pi*r*data.delta_encoder1*freq)/ticks
 	vw2 = (float(2)*math.pi*r*data.delta_encoder2*freq)/ticks
 	
-	# rospy.loginfo("w1, w2: {} {}".format(vw1, vw2))
+	rospy.loginfo("w1, w2: {} {}".format(vw1, vw2))
 	
 	# lina = (w1+w2)/2.0
 	# anga = (w2-w1)/(2.0*b)
