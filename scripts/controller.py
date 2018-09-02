@@ -84,7 +84,8 @@ def callback_encoder(data):
 
 	# evw1 = lind - (b*angd)
 	# evw2 = lind + (b*angd)
-	# rospy.loginfo("Error: {}, {}".format(evw1,evw2) )
+	
+	rospy.loginfo("Error: {}, {}".format(evw1,evw2) )
 
 	error_sum1 += (float(evw1)/freq)
 	error_sum2 += (float(evw2)/freq)
@@ -118,11 +119,11 @@ def callback_pwm(data):
 	vw1 = v - (b*w)
 	vw2 = v + (b*w)
 
-	# vw1d = (vw1*ticks)/(2*math.pi*r*freq)
-	# vw2d = (vw2*ticks)/(2*math.pi*r*freq)
+	vw1d = (vw1*ticks)/(2*math.pi*r*freq)
+	vw2d = (vw2*ticks)/(2*math.pi*r*freq)
 
-	vw1d = vw1
-	vw2d = vw2
+	# vw1d = vw1
+	# vw2d = vw2
 
 	# vw1d = v
 	# vw2d = w
