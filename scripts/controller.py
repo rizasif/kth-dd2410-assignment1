@@ -27,9 +27,9 @@ error_sum1 = 0.0
 error_sum2 = 0.0
 
 # controller
-Kp = 1.2
-Ki = 1
-Kd = 0.001
+Kp = 0.2
+Ki = 0.0
+Kd = 0.0
 
 # last erros
 le1 = 0
@@ -89,8 +89,8 @@ def callback_encoder(data):
 
 	rospy.loginfo("DL: {}, {}".format(dl1,dl2) )
 
-	pwm.PWM1 = (Kp*evw1) + (Ki*error_sum1) + (Kd* (dl1*freq) )
-	pwm.PWM2 = (Kp*evw2) + (Ki*error_sum2) + (Kd* (dl2*freq) )
+	pwm.PWM1 += (Kp*evw1) + (Ki*error_sum1) + (Kd* (dl1*freq) )
+	pwm.PWM2 += (Kp*evw2) + (Ki*error_sum2) + (Kd* (dl2*freq) )
 
 	le1 = evw1
 	le2 = evw2
