@@ -34,7 +34,7 @@ def callback_adc(data):
 	twist.linear.x = speed
 	# if abs(num) <= 0.001:
 	# 	theta = 0.0		
-	twist.angular.x = -theta
+	twist.angular.x = theta
 
 	rospy.loginfo("Publishing: {}, {}".format(twist.linear.x,twist.angular.x) )
 
