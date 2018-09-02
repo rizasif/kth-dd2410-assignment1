@@ -23,9 +23,9 @@ error_sum1 = 0.0
 error_sum2 = 0.0
 
 # controller
-Kp = 1.0
+Kp = 1.5
 Ki = 1.0
-Kd = 0.5
+Kd = 0.1
 
 # last erros
 le1 = 0
