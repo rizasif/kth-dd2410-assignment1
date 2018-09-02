@@ -35,6 +35,8 @@ def callback_adc(data):
 
 	if(ch1 >= 350 and ch2 >= 350):
 		theta *= -1
+	elif(ch1 <= 300 and ch2 <= 300):
+		theta *= -1
 
 	twist.angular.x = theta
 
