@@ -1,11 +1,9 @@
 #!/usr/bin/env python
 # license removed for brevity
 import rospy
-# from std_msgs.msg import String
 from ras_lab1_msgs.msg import PWM
 from geometry_msgs.msg import Twist
 from ras_lab1_msgs.msg import Encoders
-from listner import GetEncoderData
 import math
 
 # robot model
@@ -106,7 +104,7 @@ def callback_pwm(data):
 
 	rospy.loginfo("Received Command: {} {}".format(v, w))
 	
-def listener():
+def main():
 	rospy.Subscriber("/motor_controller/twist", Twist, callback_pwm)
 	rospy.Subscriber("/kobuki/encoders", Encoders, callback_encoder)
 
@@ -118,8 +116,7 @@ if __name__ == '__main__':
 		rospy.init_node('controller_node', anonymous=True)
 		rate = rospy.Rate(freq)
 		
-		# initialize()
-		listener()
+		main()
 
 		rospy.spin()
 
