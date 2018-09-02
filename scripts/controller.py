@@ -23,7 +23,7 @@ error_sum1 = 0.0
 error_sum2 = 0.0
 
 # controller
-Kp = 1.0
+Kp = 0.1
 Ki = 0.0
 Kd = 0.0
 
