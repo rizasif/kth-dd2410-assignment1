@@ -32,7 +32,7 @@ def callback_adc(data):
 
 	twist = Twist()
 	twist.linear.x = speed
-	if num <= 0.05:
+	if num <= 0.2:
 		theta = 0.0		
 	twist.angular.x = theta
 
