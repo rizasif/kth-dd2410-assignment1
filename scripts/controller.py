@@ -62,10 +62,12 @@ def callback_encoder(data):
 	global le1
 	global le2
 
-	# rospy.loginfo(rospy.get_caller_id() + "Encoder Data recieved: {} {}".format(data.delta_encoder1, data.delta_encoder2))
+	rospy.loginfo("Encoder Data recieved: {} {}".format(data.delta_encoder1, data.delta_encoder2))
 	w1 = (float(2)*math.pi*r*data.delta_encoder1*freq)/ticks
 	w2 = (float(2)*math.pi*r*data.delta_encoder2*freq)/ticks
-
+	
+	rospy.loginfo("w1, w2: {} {}".format(w1, w2))
+	
 	# lina = (w1+w2)/2.0
 	# anga = (w2-w1)/(2.0*b)
 
@@ -80,8 +82,10 @@ def callback_encoder(data):
 	dl1 = evw1-le1
 	dl2 = evw2-le2
 
-	pwm.PWM1 -= (Kp*evw1) + (Ki*error_sum1) + (Kd* (dl1*freq) )
-	pwm.PWM2 -= (Kp*evw2) + (Ki*error_sum2) + (Kd* (dl2*freq) )
+	rospy.loginfo("DL: {}, {}".format(dl1,dl2) )
+
+	pwm.PWM1 = (Kp*evw1) + (Ki*error_sum1) + (Kd* (dl1*freq) )
+	pwm.PWM2 = (Kp*evw2) + (Ki*error_sum2) + (Kd* (dl2*freq) )
 
 	le1 = evw1
 	le2 = evw2
