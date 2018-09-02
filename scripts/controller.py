@@ -68,16 +68,26 @@ def callback_encoder(data):
 	vw1 = (float(2)*math.pi*r*data.delta_encoder1*freq)/ticks
 	vw2 = (float(2)*math.pi*r*data.delta_encoder2*freq)/ticks
 	
-	rospy.loginfo("w1, w2: {} {}".format(vw1, vw2))
+	rospy.loginfo("vw1, vw2: {} {}".format(vw1, vw2))
 	
-	# lina = (w1+w2)/2.0
-	# anga = (w2-w1)/(2.0*b)
+	lina = (vw1+vw2)/2.0
+	anga = (vw2-vw1)/(2.0*b)
 
-	evw1 = vw1d - vw1
-	evw2 = vw2d - vw2
+	rospy.loginfo("lina, anga: {} {}".format(lina, anga))
+
+	lind = vw1d - lina
+	angd = vw2d - anga
+
+	rospy.loginfo("Error: {}, {}".format(lind,angd) )
+
+	# evw1 = vw1d - vw1
+	# evw2 = vw2d - vw2
 
 	# evw1 = vw1d - data.delta_encoder1
 	# evw2 = vw2d - data.delta_encoder2
+
+	evw1 = lind - (b*angd)
+	evw2 = lind + (b*angd)
 
 	rospy.loginfo("Error: {}, {}".format(evw1,evw2) )
 
@@ -92,8 +102,8 @@ def callback_encoder(data):
 	pwm.PWM1 = (Kp*evw1) + (Ki*error_sum1) + (Kd* (dl1*freq) )
 	pwm.PWM2 = (Kp*evw2) + (Ki*error_sum2) + (Kd* (dl2*freq) )
 
-	pwm.PWM1 += vw1d
-	pwm.PWM2 += vw2d
+	# pwm.PWM1 += vw1d
+	# pwm.PWM2 += vw2d
 
 	le1 = evw1
 	le2 = evw2
@@ -110,14 +120,17 @@ def callback_pwm(data):
 	v = data.linear.x
 	w = data.angular.x
 
-	vw1 = v - (b*w)
-	vw2 = v + (b*w)
+	# vw1 = v - (b*w)
+	# vw2 = v + (b*w)
 
 	# vw1d = (vw1*ticks)/(2*math.pi*r*freq)
 	# vw2d = (vw2*ticks)/(2*math.pi*r*freq)
 
-	vw1d = vw1
-	vw2d = vw2
+	# vw1d = vw1
+	# vw2d = vw2
+
+	vw1d = v
+	vw2d = w
 
 	rospy.loginfo("Received Command: {} {}".format(v, w))
 
