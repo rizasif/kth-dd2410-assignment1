@@ -8,12 +8,11 @@ from ras_lab1_msgs.msg import Encoders
 from listner import GetEncoderData
 import math
 
+# robot model
 ticks = 360
 b = 0.115
 r = 0.0352
 freq = 10
-
-# is_initialized = False
 
 pwm = PWM()
 
@@ -28,7 +27,7 @@ error_sum2 = 0.0
 # controller
 Kp = 1.0
 Ki = 0.1
-Kd = 0.0
+Kd = 0.0001
 
 # last erros
 le1 = 0
@@ -64,26 +63,8 @@ def callback_encoder(data):
 	rospy.loginfo("Encoder Data recieved: {} {}".format(data.delta_encoder1, data.delta_encoder2))
 	rospy.loginfo("Desired: {}, {}".format(vw1d,vw2d) )
 
-	# vw1 = (float(2)*math.pi*r*data.delta_encoder1*freq)/ticks
-	# vw2 = (float(2)*math.pi*r*data.delta_encoder2*freq)/ticks
-	# rospy.loginfo("vw1, vw2: {} {}".format(vw1, vw2))
-	
-	# lina = (vw1+vw2)/2.0
-	# anga = (vw2-vw1)/(2.0*b)
-	# rospy.loginfo("lina, anga: {} {}".format(lina, anga))
-
-	# lind = vw1d - lina
-	# angd = vw2d - anga
-	# rospy.loginfo("Error: {}, {}".format(lind,angd) )
-
-	# evw1 = vw1d - vw1
-	# evw2 = vw2d - vw2
-
 	evw1 = vw1d - data.delta_encoder1
 	evw2 = vw2d - data.delta_encoder2
-
-	# evw1 = lind - (b*angd)
-	# evw2 = lind + (b*angd)
 	
 	rospy.loginfo("Error: {}, {}".format(evw1,evw2) )
 
@@ -123,32 +104,11 @@ def callback_pwm(data):
 	vw1d = (vw1*ticks)/(2*math.pi*r*freq)
 	vw2d = (vw2*ticks)/(2*math.pi*r*freq)
 
-	# vw1d = vw1
-	# vw2d = vw2
-
-	# vw1d = v
-	# vw2d = w
-
 	rospy.loginfo("Received Command: {} {}".format(v, w))
-
-	# rospy.loginfo("Publishing PWM: {}, {}".format(pwm.PWM1,pwm.PWM2) ) 
-	# pub.publish(pwm)
-	# rate.sleep()
 	
 def listener():
-	# rospy.init_node('pwm_listener', anonymous=True)
 	rospy.Subscriber("/motor_controller/twist", Twist, callback_pwm)
 	rospy.Subscriber("/kobuki/encoders", Encoders, callback_encoder)
-
-	# rospy.spin()
-
-# def keep_moving():
-# 	pub = rospy.Publisher('/kobuki/pwm', PWM, queue_size=10)
-# 	while not rospy.is_shutdown():
-# 		pub.publish(pwm)
-# 		rate.sleep()
-
-	# rospy.spin()
 
 if __name__ == '__main__':
 	try:
