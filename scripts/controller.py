@@ -23,8 +23,8 @@ error_sum1 = 0.0
 error_sum2 = 0.0
 
 # controller
-Kp = 0.75
-Ki = 0.25
+Kp = 0.9
+Ki = 0.1
 Kd = 0.0001
 
 # last erros
