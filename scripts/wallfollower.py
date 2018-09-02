@@ -8,7 +8,7 @@ from geometry_msgs.msg import Twist
 freq = 10
 l = 0.2
 
-speed = 0.01
+speed = 0.05
 
 pub = rospy.Publisher('/motor_controller/twist', Twist, queue_size=10)
 
