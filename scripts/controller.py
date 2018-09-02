@@ -110,11 +110,11 @@ def callback_pwm(data):
 	vw1 = v - (b*w)
 	vw2 = v + (b*w)
 
-	vw1d = (vw1*ticks)/(2*math.pi*r*freq)
-	vw2d = (vw2*ticks)/(2*math.pi*r*freq)
+	# vw1d = (vw1*ticks)/(2*math.pi*r*freq)
+	# vw2d = (vw2*ticks)/(2*math.pi*r*freq)
 
-	# vw1d = vw1
-	# vw2d = vw2
+	vw1d = vw1
+	vw2d = vw2
 
 	rospy.loginfo("Received Command: {} {}".format(v, w))
 
