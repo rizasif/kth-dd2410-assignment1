@@ -65,19 +65,19 @@ def callback_encoder(data):
 	rospy.loginfo("Encoder Data recieved: {} {}".format(data.delta_encoder1, data.delta_encoder2))
 	rospy.loginfo("Desired: {}, {}".format(vw1d,vw2d) )
 
-	# vw1 = (float(2)*math.pi*r*data.delta_encoder1*freq)/ticks
-	# vw2 = (float(2)*math.pi*r*data.delta_encoder2*freq)/ticks
+	vw1 = (float(2)*math.pi*r*data.delta_encoder1*freq)/ticks
+	vw2 = (float(2)*math.pi*r*data.delta_encoder2*freq)/ticks
 	
 	# rospy.loginfo("w1, w2: {} {}".format(vw1, vw2))
 	
 	# lina = (w1+w2)/2.0
 	# anga = (w2-w1)/(2.0*b)
 
-	# evw1 = vw1d - vw1
-	# evw2 = vw2d - vw2
+	evw1 = vw1d - vw1
+	evw2 = vw2d - vw2
 
-	evw1 = vw1d - data.delta_encoder1
-	evw2 = vw2d - data.delta_encoder2
+	# evw1 = vw1d - data.delta_encoder1
+	# evw2 = vw2d - data.delta_encoder2
 
 	rospy.loginfo("Error: {}, {}".format(evw1,evw2) )
 
