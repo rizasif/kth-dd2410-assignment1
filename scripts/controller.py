@@ -99,8 +99,8 @@ def callback_encoder(data):
 	e2 = (Kp*evw2) + (Ki*error_sum2) + (Kd* (dl2*freq) )
 	rospy.loginfo("PID: {}, {}".format(e1,e2) )
 
-	pwm.PWM1 = data.delta_encoder1 + e1
-	pwm.PWM2 = data.delta_encoder2 + e2
+	pwm.PWM1 += e1
+	pwm.PWM2 += e2
 
 	le1 = evw1
 	le2 = evw2
