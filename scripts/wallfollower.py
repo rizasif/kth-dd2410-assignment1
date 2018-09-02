@@ -8,7 +8,7 @@ from geometry_msgs.msg import Twist
 freq = 10
 l = 0.2
 
-speed = 0.1
+speed = 0.01
 
 pub = rospy.Publisher('/motor_controller/twist', Twist, queue_size=10)
 
@@ -32,8 +32,8 @@ def callback_adc(data):
 
 	twist = Twist()
 	twist.linear.x = speed
-	if abs(num) <= 0.001:
-		theta = 0.0		
+	# if abs(num) <= 0.001:
+	# 	theta = 0.0		
 	twist.angular.x = theta
 
 	rospy.loginfo("Publishing: {}, {}".format(twist.linear.x,twist.angular.x) )
