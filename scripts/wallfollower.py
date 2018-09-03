@@ -36,11 +36,13 @@ def callback_adc(data):
 	twist = Twist()
 	twist.linear.x = speed
 
-	twist.angular.x = theta - last_theta
+	avg = (d1+d2)/2.0
+	if(avg > 0.3 and theta > 0):
+		theta *= -1
+	elif(avg < 0.3 and theta < 0):
+		theta *= -1
 
-	if (abs(num) < 0.01):
-		if (d1 >= 0.3 and d1 <=0.31):
-			twist.angular.x = 0.0
+	twist.angular.x = theta
 
 	last_theta = theta
 
