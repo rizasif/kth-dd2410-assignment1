@@ -38,7 +38,7 @@ def callback_adc(data):
 
 	twist.angular.x = theta - last_theta
 
-	if (d1==d2==0.3):
+	if (abs(num) < 0.32 and abs(num) > 0.3):
 		twist.angular.x = 0.0
 		pass
 
