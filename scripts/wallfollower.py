@@ -50,7 +50,7 @@ def callback_adc(data):
 		rospy.loginfo("Setting theta null: {} {}".format(abs(num), avg))
 		theta = 0.0
 
-	twist.angular.x = 0.75*theta
+	twist.angular.x = 1.0*theta
 	last_theta = theta
 
 	rospy.loginfo("Publishing: {}, {}".format(twist.linear.x,twist.angular.x) )
