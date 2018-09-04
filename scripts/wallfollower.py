@@ -45,7 +45,7 @@ def callback_adc(data):
 	# 		rospy.loginfo("Inverting: {}, {}".format(avg,theta))
 	# 		theta *= -1
 
-	if(avg > 0.28 and avg < 0.33):
+	if(abs(num) <= 0.1 and avg > 0.28 and avg < 0.33):
 		theta = 0.0
 
 	twist.angular.x = 0.75*theta
