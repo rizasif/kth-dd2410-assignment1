@@ -8,7 +8,7 @@ from geometry_msgs.msg import Twist
 freq = 10
 l = 0.2
 
-speed = 0.1
+speed = 0.0
 
 last_theta = 0
 
