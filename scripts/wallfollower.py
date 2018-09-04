@@ -49,7 +49,7 @@ def callback_adc(data):
 	alpha = 1.0
 	if(abs(num) <= 0.05 and avg > 0.29 and avg < 0.31):
 		rospy.loginfo("Optimality Achieved: {} {}".format(abs(num), avg))
-		alpha = 0.25
+		alpha = abs(num)
 		# theta = 0.0
 
 	twist.angular.x = alpha*theta
