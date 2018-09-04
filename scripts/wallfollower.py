@@ -45,6 +45,7 @@ def callback_adc(data):
 	# 		rospy.loginfo("Inverting: {}, {}".format(avg,theta))
 	# 		theta *= -1
 
+	theta = num
 	if(abs(num) <= 0.05 and avg > 0.28 and avg < 0.32):
 		rospy.loginfo("Setting theta null: {} {}".format(abs(num), avg))
 		theta = 0.0
