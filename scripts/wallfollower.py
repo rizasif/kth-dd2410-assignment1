@@ -45,7 +45,7 @@ def callback_adc(data):
 			rospy.loginfo("Inverting: {}, {}".format(avg,theta))
 			theta *= -1	
 
-	twist.angular.x = 0.5*theta
+	twist.angular.x = 0.5*(theta-last_theta)
 	last_theta = theta
 
 	rospy.loginfo("Publishing: {}, {}".format(twist.linear.x,twist.angular.x) )
