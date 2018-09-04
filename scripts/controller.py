@@ -84,6 +84,10 @@ def callback_encoder(data):
 	le1 = evw1
 	le2 = evw2
 
+	if data.delta_encoder1 == 0.0 and data.delta_encoder2 == 0.0:
+		pwm.PWM1 = 0.0
+		pwm.PWM2 = 0.0
+
 	rospy.loginfo("Publishing PWM: {}, {}".format(pwm.PWM1,pwm.PWM2) )
 	pub.publish(pwm)
 	rate.sleep()
