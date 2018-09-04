@@ -37,7 +37,7 @@ def callback_adc(data):
 	twist.linear.x = speed
 
 	avg = (d1+d2)/2.0
-	if (num <= 0.05):
+	if (abs(num) <= 0.05):
 		if(avg > 0.3 and theta > 0):
 			rospy.loginfo("Inverting: {}, {}".format(avg,theta))
 			theta *= -1
@@ -45,7 +45,7 @@ def callback_adc(data):
 			rospy.loginfo("Inverting: {}, {}".format(avg,theta))
 			theta *= -1	
 
-	twist.angular.x = 0.5*(theta-last_theta)
+	twist.angular.x = 1.0*(theta-last_theta)
 	last_theta = theta
 
 	rospy.loginfo("Publishing: {}, {}".format(twist.linear.x,twist.angular.x) )
