@@ -40,13 +40,13 @@ def callback_adc(data):
 	rospy.loginfo("Distances: {}, {}".format(d1,d2) )
 
 	num = d1-d2
-	# dnum =  math.pow(d1-d2, 2) + math.pow(l, 2)
-	# dnum = math.sqrt(dnum)
-	# theta = math.atan2(num,dnum)
+	dnum =  math.pow(d1-d2, 2) + math.pow(l, 2)
+	dnum = math.sqrt(dnum)
+	theta = math.atan2(num,dnum)
 	
-	# avg_dist = (d1+d2)/2.0
-	# ed =  d_dist - avg_dist
-	theta = num
+	avg_dist = (d1+d2)/2.0
+	ed =  d_dist - avg_dist
+	theta -= ed
 
 	sum_theta += theta/freq
 	
