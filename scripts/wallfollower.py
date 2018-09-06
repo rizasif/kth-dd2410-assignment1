@@ -34,7 +34,6 @@ def callback_adc(data):
 	theta = math.atan(num/dnum)
 
 	twist = Twist()
-	twist.linear.x = speed
 
 	avg = (d1+d2)/2.0
 	# if (abs(num) <= 0.1):
@@ -50,8 +49,13 @@ def callback_adc(data):
 	if(abs(num) < 0.01 and avg > 0.29 and avg < 0.31):
 		rospy.loginfo("Optimality Achieved: {} {}".format(abs(num), avg))
 		alpha = abs(num)
-		# theta = 0.0
+		speed = 0.1
+	else:
+		speed = 0.0
 
+		# theta = 0.0
+	
+	twist.linear.x = speed
 	twist.angular.x = alpha*theta
 	last_theta = theta
 
