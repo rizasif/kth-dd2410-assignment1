@@ -80,7 +80,7 @@ def main():
 	twist = Twist()
 	while not rospy.is_shutdown():
 		twist.linear.x = speed
-		twist.angular.z = 0.5*(ch2-ch1)
+		twist.angular.z = 0.02*(ch2-ch1)
 		rospy.loginfo("Publishing: {}, {}".format(twist.linear.x,twist.angular.z) )
 
 		pub.publish(twist)
