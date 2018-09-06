@@ -25,7 +25,7 @@ error_sum2 = 0.0
 # controller
 Kp = 0.5
 Ki = 0.01
-Kd = 0.001
+Kd = 0.0
 
 # last erros
 le1 = 0
@@ -94,7 +94,7 @@ def callback_pwm(data):
 	global vw2d
 
 	v = data.linear.x
-	w = data.angular.x
+	w = data.angular.z
 
 	vw1 = v - (b*w)
 	vw2 = v + (b*w)
