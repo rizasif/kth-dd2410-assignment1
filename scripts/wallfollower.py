@@ -46,7 +46,7 @@ def callback_adc(data):
 	
 	avg_dist = (d1+d2)/2.0
 	ed =  d_dist - avg_dist
-	theta -= ed
+	theta += ed
 
 	sum_theta += theta/freq
 	
