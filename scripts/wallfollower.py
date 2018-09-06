@@ -34,28 +34,28 @@ def callback_adc(data):
 
 	rospy.loginfo("Channels Recieved: {}, {}".format(ch1,ch2) )
 
-	d1 = 1.114*math.exp(-0.004*ch1)
-	d2 = 1.114*math.exp(-0.004*ch2)
+	# d1 = 1.114*math.exp(-0.004*ch1)
+	# d2 = 1.114*math.exp(-0.004*ch2)
 
-	rospy.loginfo("Distances: {}, {}".format(d1,d2) )
+	# rospy.loginfo("Distances: {}, {}".format(d1,d2) )
 
-	num = d1-d2
-	dnum =  math.pow(d1-d2, 2) + math.pow(l, 2)
-	dnum = math.sqrt(dnum)
-	theta = math.atan2(num,dnum)
+	# num = d1-d2
+	# dnum =  math.pow(d1-d2, 2) + math.pow(l, 2)
+	# dnum = math.sqrt(dnum)
+	# theta = math.atan2(num,dnum)
 	
-	avg_dist = (d1+d2)/2.0
-	ed =  d_dist - avg_dist
-	theta += ed
+	# avg_dist = (d1+d2)/2.0
+	# ed =  d_dist - avg_dist
+	# theta += ed
 
-	sum_theta += theta/freq
+	# sum_theta += theta/freq
 	
-	new_theta = (Kp*theta + Ki*sum_theta) 
+	# new_theta = (Kp*theta + Ki*sum_theta) 
 
 	twist = Twist()
 	
 	twist.linear.x = speed
-	twist.angular.x = new_theta
+	twist.angular.x = 0.02*(ch1-ch2)
 	last_theta = new_theta
 
 	rospy.loginfo("Publishing: {}, {}".format(twist.linear.x,twist.angular.x) )
