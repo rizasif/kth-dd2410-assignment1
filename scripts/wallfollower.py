@@ -9,7 +9,14 @@ freq = 10
 l = 0.2
 
 speed = 0.1
+
+sum_theta = 0
 last_theta = 0
+
+# controller
+Kp = 0.5
+Ki = 0.01
+Kd = 0.001
 
 pub = rospy.Publisher('/motor_controller/twist', Twist, queue_size=10)
 
@@ -32,12 +39,13 @@ def callback_adc(data):
 	dnum = math.sqrt(dnum)
 	theta = math.atan2(num,dnum)
 
-	twist = Twist()
+	# avg_dist = (d1+d2)/2.0
 
-	avg = (d1+d2)/2.0
+
+	twist = Twist()
 	
 	twist.linear.x = speed
-	twist.angular.x = (theta)
+	twist.angular.x = -1*theta
 	last_theta = theta
 
 	rospy.loginfo("Publishing: {}, {}".format(twist.linear.x,twist.angular.x) )
