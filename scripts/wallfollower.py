@@ -30,7 +30,7 @@ def callback_adc(data):
 	num = d1-d2
 	dnum =  math.pow(d1-d2, 2) + math.pow(l, 2)
 	dnum = math.sqrt(dnum)
-	theta = math.atan2(num/dnum)
+	theta = math.atan2(num,dnum)
 
 	twist = Twist()
 
