@@ -13,7 +13,7 @@ speed = 0.1
 sum_theta = 0
 last_theta = 0
 
-d_dist = 0.3
+d_dist = 0.35
 
 # controller
 Kp = 0.5
@@ -44,9 +44,9 @@ def callback_adc(data):
 	dnum = math.sqrt(dnum)
 	theta = math.atan2(num,dnum)
 	
-	avg_dist = (d1+d2)/2.0
-	ed =  d_dist - avg_dist
-	theta = num + 0.5*ed
+	# avg_dist = (d1+d2)/2.0
+	# ed =  d_dist - avg_dist
+	# theta = num + 0.5*ed
 
 	sum_theta += theta/freq
 	
