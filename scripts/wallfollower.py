@@ -31,31 +31,14 @@ def callback_adc(data):
 	num = d1-d2
 	dnum =  math.pow(d1-d2, 2) + math.pow(l, 2)
 	dnum = math.sqrt(dnum)
-	theta = math.atan(num/dnum)
+	theta = math.atan2(num/dnum)
 
 	twist = Twist()
 
 	avg = (d1+d2)/2.0
-	# if (abs(num) <= 0.1):
-	# 	if(avg > 0.3 and theta > 0):
-	# 		rospy.loginfo("Inverting: {}, {}".format(avg,theta))
-	# 		theta *= -1
-	# 	elif(avg < 0.3 and theta < 0):
-	# 		rospy.loginfo("Inverting: {}, {}".format(avg,theta))
-	# 		theta *= -1
-
-	# theta = num
-	alpha = 1.0
-	beta = 1.0
-	if(abs(num) < 0.01 and avg > 0.32 and avg < 0.34):
-		rospy.loginfo("Optimality Achieved: {} {}".format(abs(num), avg))
-		alpha = abs(num)
-		beta = 1.0
-	else:
-		beta = 0.25
 	
-	twist.linear.x = beta*speed
-	twist.angular.x = alpha* (theta)
+	twist.linear.x = speed
+	twist.angular.x = (theta)
 	last_theta = theta
 
 	rospy.loginfo("Publishing: {}, {}".format(twist.linear.x,twist.angular.x) )
