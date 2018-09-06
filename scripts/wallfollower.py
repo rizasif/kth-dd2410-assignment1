@@ -52,7 +52,7 @@ def callback_adc(data):
 		alpha = abs(num)
 		beta = 1.0
 	else:
-		beta = 0.5
+		beta = 0.25
 	
 	twist.linear.x = beta*speed
 	twist.angular.x = alpha* (theta)
