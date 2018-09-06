@@ -9,7 +9,6 @@ freq = 10
 l = 0.2
 
 speed = 0.1
-
 last_theta = 0
 
 pub = rospy.Publisher('/motor_controller/twist', Twist, queue_size=10)
