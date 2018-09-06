@@ -46,7 +46,7 @@ def callback_adc(data):
 
 	# theta = num
 	alpha = 1.0
-	if(abs(num) < 0.05 and avg > 0.29 and avg < 0.31):
+	if(abs(num) < 0.05 and avg > 0.32 and avg < 0.34):
 		rospy.loginfo("Optimality Achieved: {} {}".format(abs(num), avg))
 		alpha = abs(num)
 		speed = 0.1
