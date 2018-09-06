@@ -20,6 +20,10 @@ Kp = 0.5
 Ki = 0.05
 Kd = 0.001
 
+# channels
+ch1 = 0
+ch2 = 0
+
 pub = rospy.Publisher('/motor_controller/twist', Twist, queue_size=10)
 
 def callback_adc(data):
@@ -28,6 +32,8 @@ def callback_adc(data):
 	global sum_theta
 	global Kp
 	global Ki
+	global ch1
+	global ch2
 
 	ch1 = data.ch1
 	ch2 = data.ch2
@@ -52,21 +58,34 @@ def callback_adc(data):
 	
 	# new_theta = (Kp*theta + Ki*sum_theta) 
 
-	twist = Twist()
+	# twist = Twist()
 	
-	twist.linear.x = speed
-	twist.angular.z = 0.5*(ch2-ch1)
-	# last_theta = new_theta
+	# twist.linear.x = speed
+	# twist.angular.z = 0.5*(ch2-ch1)
+	# # last_theta = new_theta
 
-	rospy.loginfo("Publishing: {}, {}".format(twist.linear.x,twist.angular.x) )
+	# rospy.loginfo("Publishing: {}, {}".format(twist.linear.x,twist.angular.x) )
 
-	pub.publish(twist)
-	rate.sleep()
+	# pub.publish(twist)
+	# rate.sleep()
 
 	pass
 
 def main():
+	global ch1
+	global ch2
+
 	rospy.Subscriber("/kobuki/adc", ADConverter, callback_adc)
+
+	twist = Twist()
+	while not rospy.is_shutdown():
+		twist.linear.x = speed
+		twist.angular.z = 0.5*(ch2-ch1)
+		rospy.loginfo("Publishing: {}, {}".format(twist.linear.x,twist.angular.z) )
+
+		pub.publish(twist)
+		rate.sleep()
+
 	pass
 
 if __name__ == '__main__':
