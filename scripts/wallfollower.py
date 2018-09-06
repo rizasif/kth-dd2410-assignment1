@@ -8,7 +8,7 @@ from geometry_msgs.msg import Twist
 freq = 10
 l = 0.2
 
-speed = 0.0
+speed = 0.1
 
 last_theta = 0
 
@@ -46,16 +46,17 @@ def callback_adc(data):
 
 	# theta = num
 	alpha = 1.0
+	beta = 1.0
 	if(abs(num) < 0.05 and avg > 0.32 and avg < 0.34):
 		rospy.loginfo("Optimality Achieved: {} {}".format(abs(num), avg))
 		alpha = abs(num)
-		speed = 0.1
+		speed = 1.0
 	else:
-		speed = 0.0
+		speed = 0.1
 
 		# theta = 0.0
 	
-	twist.linear.x = speed
+	twist.linear.x = beta*speed
 	twist.angular.x = alpha* (theta-last_theta)
 	last_theta = theta
 
