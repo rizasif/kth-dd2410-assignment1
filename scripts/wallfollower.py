@@ -16,8 +16,8 @@ last_theta = 0
 d_dist = 0.3
 
 # controller
-Kp = 0.5
-Ki = 0.01
+Kp = 1.0
+Ki = 0.5
 Kd = 0.001
 
 pub = rospy.Publisher('/motor_controller/twist', Twist, queue_size=10)
@@ -46,7 +46,7 @@ def callback_adc(data):
 	
 	avg_dist = (d1+d2)/2.0
 	ed =  d_dist - avg_dist
-	theta = num - ed
+	theta = num
 
 	sum_theta += theta/freq
 	
