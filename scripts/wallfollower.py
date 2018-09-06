@@ -55,7 +55,7 @@ def callback_adc(data):
 	twist = Twist()
 	
 	twist.linear.x = speed
-	twist.angular.x = 0.02*(ch1-ch2)
+	twist.angular.x = 0.02*(ch2-ch1)
 	# last_theta = new_theta
 
 	rospy.loginfo("Publishing: {}, {}".format(twist.linear.x,twist.angular.x) )
