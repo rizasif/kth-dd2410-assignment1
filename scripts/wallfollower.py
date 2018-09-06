@@ -45,7 +45,7 @@ def callback_adc(data):
 	# avg_dist = (d1+d2)/2.0
 	sum_theta += theta/freq
 	
-	new_theta = last_theta + (Kp*theta + Ki*sum_theta) 
+	new_theta = last_theta - (Kp*theta + Ki*sum_theta) 
 
 	twist = Twist()
 	
