@@ -18,5 +18,8 @@
   <!-- run rviz -->
   <node pkg="rviz" type="rviz" name="rviz" args="-d $(find ras_lab1_launch)/config/lab1.rviz" />
 
+  <node pkg="scripts" name="controller.py" type="mtnode.py" output="screen">
+  <node pkg="scripts" name="wallfollower.py" type="mtnode.py" output="screen">
+
 
 </launch>
